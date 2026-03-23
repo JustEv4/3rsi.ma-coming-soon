@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3rsi.ma - منصة الأعراس المغربية | قريباً</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            DEFAULT: '#722f37',
+                            light: '#8b3d47',
+                            dark: '#5a252c',
+                        },
+                        gold: {
+                            DEFAULT: '#c4a35a',
+                            light: '#d4b76a',
+                            dark: '#a68b4a',
+                        },
+                        cream: {
+                            DEFAULT: '#fffef7',
+                            dark: '#f5efe0',
+                        },
+                        ivory: {
+                            DEFAULT: '#e8dcc4',
+                            dark: '#d4c8a8',
+                        },
+                        charcoal: {
+                            DEFAULT: '#2d2d2d',
+                            light: '#4a4a4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans Arabic"', 'sans-serif'],
+                        serif: ['Amiri', 'serif'],
+                    },
+                    backgroundImage: {
+                        'moroccan-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0z' fill='none' stroke='%23C4A35A' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E\")",
+                        'zellige-pattern': "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C4A35A' stroke-width='0.3' opacity='0.15'%3E%3Cpath d='M0 0h80v80H0z'/%3E%3Cpath d='M40 0v80M0 40h80M20 0v80M60 0v80M0 20h80M0 60h80'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Ccircle cx='0' cy='0' r='10'/%3E%3Ccircle cx='80' cy='0' r='10'/%3E%3Ccircle cx='0' cy='80' r='10'/%3E%3Ccircle cx='80' cy='80' r='10'/%3E%3C/g%3E%3C/svg%3E\")",
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 1s ease-out forwards',
+                        'float': 'float 4s ease-in-out infinite',
+                        'shimmer': 'shimmer 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'sparkle': 'sparkle 1.5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(10px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%, 100%': { filter: 'drop-shadow(0 0 10px rgba(196, 163, 90, 0.3))' },
+                            '50%': { filter: 'drop-shadow(0 0 25px rgba(196, 163, 90, 0.8))' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(114, 47, 55, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px rgba(196, 163, 90, 0.6)' },
+                        },
+                        sparkle: {
+                            '0%': { opacity: '0', transform: 'scale(0)' },
+                            '50%': { opacity: '1' },
+                            '100%': { opacity: '0', transform: 'scale(1)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fffef7;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            overflow: hidden;
+        }
+        .burgundy-gradient {
+            background: linear-gradient(135deg, #722f37 0%, #8b3d47 50%, #722f37 100%);
+        }
+        .gold-text {
+            background: linear-gradient(135deg, #c4a35a 0%, #d4b76a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .elegant-border {
+            border: 2px solid #c4a35a;
+            box-shadow: 0 4px 20px rgba(114, 47, 55, 0.15);
+        }
+        .language-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+        .language-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+        .language-slide.prev {
+            opacity: 0;
+            transform: translateX(-100%);
+            z-index: 5;
+        }
+        .slide-content {
+            max-width: 42rem;
+            width: 100%;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+        .logo-container img {
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        .sparkle-particle {
+            position: absolute;
+            pointer-events: none;
+        }
+        .counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            color: #c4a35a;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            z-index: 20;
+        }
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #c4a35a, #8b3d47, #c4a35a);
+            animation: progress 5s linear infinite;
+            z-index: 20;
+        }
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-cream text-charcoal min-h-screen flex items-center justify-center relative overflow-hidden">
+    <!-- Background Patterns -->
+    <div class="absolute inset-0 bg-moroccan-pattern opacity-30"></div>
+    <div class="absolute inset-0 bg-zellige-pattern opacity-10"></div>
+    
+    <!-- Animated Ornaments -->
+    <div class="absolute top-0 left-0 w-32 h-32 md:w-48 md:h-48 opacity-20 animate-float" style="animation-delay: 0s;">
+        <svg viewBox="0 0 100 100" class="w-full h-full fill-gold">
+            <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
+        </svg>
+    </div>
+    <div class="absolute bottom-0 right-0 w-32 h-32 md:w-48 md:h-48 opacity-20 animate-float" style="animation-delay: 1.5s;">
+        <svg viewBox="0 0 100 100" class="w-full h-full fill-burgundy">
+            <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
+        </svg>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-gold rounded-full opacity-40 animate-float" style="animation-delay: 0s;"></div>
+        <div class="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-burgundy rounded-full opacity-30 animate-float" style="animation-delay: 0.5s;"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-2 h-2 bg-gold rounded-full opacity-40 animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-burgundy rounded-full opacity-30 animate-float" style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="relative z-10 w-full h-full">
+        
+        <!-- Arabic Version -->
+        <div id="ar" class="language-slide active" dir="rtl">
+            <div class="slide-content">
+                <div class="mb-8 animate-fade-in flex flex-col items-center">
+                    <div class="logo-container mb-4">
+                        <img src="logo.png" alt="3rsi.ma Logo" class="h-32 md:h-48 w-auto object-contain">
+                    </div>
+                    <div class="h-1 w-24 bg-gold mx-auto rounded-full"></div>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-2xl elegant-border animate-slide-up" style="animation: slideUp 1s ease-out forwards, pulseGlow 2s ease-in-out 1s infinite;">
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-burgundy mb-6">قريباً...</h2>
+                    <p class="text-lg md:text-xl text-charcoal-light leading-relaxed mb-8 font-medium">
+                        نحن نعمل على بناء أفضل منصة رقمية للأعراس المغربية، اكتشف قريبا أفضل منظمي الحفلات في مكان واحد
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                        <div class="burgundy-gradient text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform cursor-default transform hover:shadow-2xl">
+                            ترقبوا الإنطلاق
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- French Version -->
+        <div id="fr" class="language-slide" dir="ltr">
+            <div class="slide-content">
+                <div class="mb-8 animate-fade-in flex flex-col items-center">
+                    <div class="logo-container mb-4">
+                        <img src="logo.png" alt="3rsi.ma Logo" class="h-32 md:h-48 w-auto object-contain">
+                    </div>
+                    <div class="h-1 w-24 bg-gold mx-auto rounded-full"></div>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-2xl elegant-border animate-slide-up" style="animation: slideUp 1s ease-out forwards, pulseGlow 2s ease-in-out 1s infinite;">
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-burgundy mb-6">Bientôt...</h2>
+                    <p class="text-lg md:text-xl text-charcoal-light leading-relaxed mb-8 font-medium">
+                        Nous travaillons sur la construction de la meilleure plateforme numérique pour les mariages marocains. Découvrez bientôt les meilleurs organisateurs de fêtes en un seul endroit.
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                        <div class="burgundy-gradient text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform cursor-default transform hover:shadow-2xl">
+                            Attendez le lancement
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 animate-fade-in" style="animation-delay: 0.5s;">
+                    <div class="flex justify-center gap-4 mt-4">
+                        <div class="w-2 h-2 rounded-full bg-burgundy animate-pulse"></div>
+                        <div class="w-2 h-2 rounded-full bg-gold animate-pulse" style="animation-delay: 0.2s;"></div>
+                        <div class="w-2 h-2 rounded-full bg-burgundy animate-pulse" style="animation-delay: 0.4s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- English Version -->
+        <div id="en" class="language-slide" dir="ltr">
+            <div class="slide-content">
+                <div class="mb-8 animate-fade-in flex flex-col items-center">
+                    <div class="logo-container mb-4">
+                        <img src="logo.png" alt="3rsi.ma Logo" class="h-32 md:h-48 w-auto object-contain">
+                    </div>
+                    <div class="h-1 w-24 bg-gold mx-auto rounded-full"></div>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-2xl elegant-border animate-slide-up" style="animation: slideUp 1s ease-out forwards, pulseGlow 2s ease-in-out 1s infinite;">
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-burgundy mb-6">Coming Soon...</h2>
+                    <p class="text-lg md:text-xl text-charcoal-light leading-relaxed mb-8 font-medium">
+                        We are working on building the best digital platform for Moroccan weddings. Discover the best party planners in one place soon.
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                        <div class="burgundy-gradient text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform cursor-default transform hover:shadow-2xl">
+                            Stay Tuned for Launch
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 animate-fade-in" style="animation-delay: 0.5s;">
+                    <div class="flex justify-center gap-4 mt-4">
+                        <div class="w-2 h-2 rounded-full bg-burgundy animate-pulse"></div>
+                        <div class="w-2 h-2 rounded-full bg-gold animate-pulse" style="animation-delay: 0.2s;"></div>
+                        <div class="w-2 h-2 rounded-full bg-burgundy animate-pulse" style="animation-delay: 0.4s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Decorative Corner Borders -->
+    <div class="fixed top-4 right-4 w-16 h-16 border-t-4 border-r-4 border-gold opacity-40"></div>
+    <div class="fixed top-4 left-4 w-16 h-16 border-t-4 border-l-4 border-gold opacity-40"></div>
+    <div class="fixed bottom-4 right-4 w-16 h-16 border-b-4 border-r-4 border-gold opacity-40"></div>
+    <div class="fixed bottom-4 left-4 w-16 h-16 border-b-4 border-l-4 border-gold opacity-40"></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Counter -->
+    <div class="counter">
+        <span id="counter">5</span>s
+    </div>
+
+    <script>
+        const languages = ['ar', 'fr', 'en'];
+        let currentIndex = 0;
+        let countdownInterval;
+        let switchInterval;
+
+        function updateCounter() {
+            let count = 5;
+            const counterEl = document.getElementById('counter');
+            counterEl.textContent = count;
+            
+            countdownInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    counterEl.textContent = count;
+                } else {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
+        }
+
+        function switchLanguage() {
+            const currentSlide = document.getElementById(languages[currentIndex]);
+            currentIndex = (currentIndex + 1) % languages.length;
+            const nextSlide = document.getElementById(languages[currentIndex]);
+
+            // Remove active class from current slide
+            currentSlide.classList.remove('active');
+            currentSlide.classList.add('prev');
+
+            // Add active class to next slide
+            nextSlide.classList.remove('prev');
+            nextSlide.classList.add('active');
+
+            // Update HTML dir attribute
+            document.documentElement.lang = languages[currentIndex];
+            document.documentElement.dir = languages[currentIndex] === 'ar' ? 'rtl' : 'ltr';
+
+            // Reset counter
+            updateCounter();
+        }
+
+        // Initialize counter
+        updateCounter();
+
+        // Auto-switch every 5 seconds
+        switchInterval = setInterval(switchLanguage, 5000);
+    </script>
+
+</body>
+</html>
